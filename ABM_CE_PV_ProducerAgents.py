@@ -26,7 +26,7 @@ class Producers(Agent):
     like Si or Ag we may assume that other industries would accept
     recycled materials following the IS model from Ghali et al. 2017
     (see Mathur et al. 2020). The IS model may also be bypassed entirely as
-    most parameters' values for this model are uncertain.　决策
+    most parameters' values for this model are uncertain.　生产者在决定使用 recycled materials和ｖｉｒｇｉｎ材料时候，采用IS模型进行分析。对于环境影响和废弃物量的分析采用LCA模型。
 
     Attributes:
         unique_id: agent #, also relate to the node # in the network
@@ -38,7 +38,7 @@ class Producers(Agent):
             "Insulated cable": [3.22, 3.44, 3.33], "Silicon": [2.20, 3.18,
             2.69], "Silver": [453, 653, 582]}). From www.Infomine.com (2019),
             copper.org (2019), USGS (2017), Bureau of Labor Statistics (2018),
-            www.recyclingproductnews.com (all websites accessed 03/2020).
+            www.recyclingproductnews.com (all websites accessed 03/2020).　各类回收原材料费用价格的来源网站
         virgin_mat_prices (dictionary containing lists for triangular
             distributions of virgin materials prices) ($/fu), (default={
             "Product": [np.nan, np.nan, np.nan], "Aluminum": [1.76, 2.51,
@@ -46,8 +46,8 @@ class Producers(Agent):
             "Insulated cable": [3.22, 3.44, 3.33], "Silicon": [2.20, 3.18,
             2.69], "Silver": [453, 653, 582]}). From Butler et al. (2005),
             Newlove  (2017), USGS (2017), www.infomine.com (2019), expert
-            opinions (for insulated cables) (all websites accessed 03/2020).
-        social_influencability_boundaries (from Ghali et al. 2017)
+            opinions (for insulated cables) (all websites accessed 03/2020).各类新原材料费用价格的来源网站
+        social_influencability_boundaries (from Ghali et al. 2017)　　IS决策模型采取这篇论文
         self_confidence_boundaries (from Ghali et al. 2017)
 
     """
@@ -126,7 +126,7 @@ class Producers(Agent):
 
     def industrial_waste_generation(self):
         """
-        Generate industrial waste.
+        Generate industrial waste.　　属于LCA模型内容
         """
         if self.material_produced == "Product":
             num_product_producer = self.count_producer_type("Product")
@@ -136,10 +136,10 @@ class Producers(Agent):
             self.industrial_waste_generated += ind_waste
             self.yearly_industrial_waste_generated = ind_waste
 
-    def update_trust(self):
+    def update_trust(self):　　
         """
         Update trust of agents in one another within the industrial symbiosis
-        network. Mathematical model adapted from Ghali et al. 2017.
+        network. Mathematical model adapted from Ghali et al. 2017.　属于IS模型内容
         """
         random_social_event = np.asmatrix(
             np.random.uniform(self.model.social_event_boundaries[0],
@@ -179,7 +179,7 @@ class Producers(Agent):
     def update_knowledge(self):
         """
         Update knowledge of agents about industrial symbiosis. Mathematical
-        model adapted from Ghali et al. 2017.
+        model adapted from Ghali et al. 2017.　属于IS模型内容
         """
         self.knowledge_learning = np.random.random()
         knowledge_neighbors = 0
@@ -203,7 +203,7 @@ class Producers(Agent):
     def update_acceptance(self):
         """
         Update agents' acceptance of industrial symbiosis. Mathematical model
-        adapted from Ghali et al. 2017.
+        adapted from Ghali et al. 2017.　　属于IS模型内容
         """
         neighbors_nodes = self.model.grid.get_neighbors(self.pos,
                                                         include_center=False)
@@ -223,8 +223,8 @@ class Producers(Agent):
     def update_willingness(self):
         """
         Update willingness to form an industrial synergy. Mathematical
-        model adapted from Ghali et al. 2017.
-        """
+        model adapted from Ghali et al. 2017.　属于IS模型内容
+        """　
         number_synergies = 0
         neighbors_nodes = self.model.grid.get_neighbors(self.pos,
                                                         include_center=False)
@@ -241,7 +241,7 @@ class Producers(Agent):
     def add_installer_recycled_volumes(self):
         """
         Update willingness to form an industrial synergy. Mathematical
-        model adapted from Ghali et al. 2017.
+        model adapted from Ghali et al. 2017.　属于IS模型内容
         """
         tot_recycled = 0
         amount_recyclers = 0
@@ -258,7 +258,7 @@ class Producers(Agent):
     def recovered_volume_n_value(self):
         """
         Compute exchanged volumes from industrial synergy. Mathematical
-        model adapted from Ghali et al. 2017.
+        model adapted from Ghali et al. 2017.　属于IS模型内容
         """
         self.yearly_recycled_material_volume = 0
         if self.model.industrial_symbiosis:
@@ -322,7 +322,7 @@ class Producers(Agent):
         Compute societal costs of producers. Only account for the
         transportation and end of life costs of industrial waste as well as the
         avoided costs from using recovered materials. Does not account for the
-        sales of materials and products.
+        sales of materials and products.　　这块还不太理解，继续学习
         """
         self.avoided_costs_virgin_materials = 0
         self.transport_cost_industrial_waste = 0
