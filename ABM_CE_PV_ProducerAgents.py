@@ -26,7 +26,7 @@ class Producers(Agent):
     like Si or Ag we may assume that other industries would accept
     recycled materials following the IS model from Ghali et al. 2017
     (see Mathur et al. 2020). The IS model may also be bypassed entirely as
-    most parameters' values for this model are uncertain.
+    most parameters' values for this model are uncertain.　决策
 
     Attributes:
         unique_id: agent #, also relate to the node # in the network
